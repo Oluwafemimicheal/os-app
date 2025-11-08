@@ -1,8 +1,8 @@
 // import { Outlet } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar'
-import Courese from '../pages/Courese';
 import Loading from "../components/Loading"
+import { Outlet } from 'react-router-dom';
 
 const MainLayout = () => {
   const [loading, setLoading] = useState(true)
@@ -37,10 +37,9 @@ const MainLayout = () => {
             <div className='bg-red-900 h-10 flex items-center rounded-md'>
               <marquee behavior="smooth" direction="left">All Cousers are mandatory for the instructor to teach and perfectly explain</marquee>
             </div>
-            <div className='grid grid-cols-3 justify-items-center'>
-              <Courese />
-              <Courese />
-              <Courese />
+
+            <div>
+              <Outlet />
             </div>
 
           </div>
