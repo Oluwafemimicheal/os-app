@@ -18,9 +18,15 @@ const Navbar = () => {
             <li><a href="#">For Business</a></li>
             <li><a href="#">Compare Plans</a></li>
             <li><a href="#">Learn & Support</a></li>
-            <li><a href="#">Free trial</a></li>
+            <li><button popoverTarget="info" href="#">Free trial</button></li>
             <div>
               <button className="py-[3px] px-3 bg-red-600 rounded-lg text-white">Save <span>48%</span> now</button>
+            </div>
+            <div id="info" popover="">
+              <ul>
+                <li>Login</li>
+                <li>Sign in</li>
+              </ul>
             </div>
           </ul>
         </div>
