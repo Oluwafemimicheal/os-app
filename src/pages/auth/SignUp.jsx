@@ -1,28 +1,62 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
+  const [input, setInput] = useState({
+    fullname: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  })
+
+  const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('api/auth/register', input);
+      console.log("Success:", response.data);
+      if (response) return navigate("/login")
+    } catch (error) {
+      if (error.response) {
+        console.error("Server error:", error.response.data);
+      } else if (error.request) {
+        console.error("No response from server:", error.request);
+      } else {
+        console.error("Unexpected error:", error.message);
+      }
+    }
+    navigate("/login")
+  }
   return (
     <motion.div initial={{ opacity: 0, x: -100 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 0 }}
       transition={{ duration: 0.2 }} className='flex flex-col justify-center items-left pl-20 h-full w-full'>
-      <form className='flex flex-col gap-3 w-[400px]'>
+      <form className='flex flex-col gap-3 w-[400px]' onSubmit={handleSubmit}>
         <div className='border-2 border-gray-500 group transition p-2 rounded-sm flex gap-3 w-full'>
           <label htmlFor="fullname" className="w-1/5">Full Name</label>
-          <input type="fullname" name='fullname' placeholder='New Horizon' required className='bg-transparent border-l-2 border-gray-500 px-2 focus:border-[#eb5a44] w-4/5' />
+          <input type="text" name='fullname' value={input.fullname} onChange={handleChange} placeholder='New Horizon' required className='bg-transparent border-l-2 border-gray-500 px-2 focus:border-[#eb5a44] w-4/5' />
         </div>
         <div className='border-2 border-gray-500 group transition p-2 rounded-sm flex gap-3'>
           <label htmlFor="email" className="w-1/5">Email</label>
-          <input type="email" name='email' placeholder='email@gmail.com' required className='bg-transparent border-l-2 border-gray-500 px-2 focus:border-[#eb5a44] w-4/5' />
+          <input type="email" name='email' value={input.email} onChange={handleChange} placeholder='email@gmail.com' required className='bg-transparent border-l-2 border-gray-500 px-2 focus:border-[#eb5a44] w-4/5' />
         </div>
         <div className='border-2 border-gray-500 p-2 rounded-sm flex gap-3'>
-          <label htmlFor="email" className="w-1/5">Password</label>
-          <input type="password" name='password' placeholder='password' className='bg-transparent border-l-2 border-gray-500 px-2 focus:border-[#eb5a44] w-4/5' />
+          <label htmlFor="password" className="w-1/5">Password</label>
+          <input type="password" name='password' value={input.password} onChange={handleChange} placeholder='password' className='bg-transparent border-l-2 border-gray-500 px-2 focus:border-[#eb5a44] w-4/5' />
         </div>
         <div className='border-2 border-gray-500 p-2 rounded-sm flex gap-3'>
-          <label htmlFor="email" className="w-max">Confirm Password</label>
-          <input type="password" name='confirmPassword' placeholder='confirm password' className='bg-transparent border-l-2 border-gray-500 px-2 focus:border-[#eb5a44] w-max' />
+          <label htmlFor="confirmPassword" className="w-max">Confirm Password</label>
+          <input type="password" name='confirmPassword' value={input.confirmPassword} onChange={handleChange} placeholder='confirm password' className='bg-transparent border-l-2 border-gray-500 px-2 focus:border-[#eb5a44] w-max' />
         </div>
 
 

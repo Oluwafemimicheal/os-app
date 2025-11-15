@@ -8,10 +8,10 @@ const Auth = () => {
   const { loading, LoadingComponent } = useLoading();
 
   return (
-    <>
+    <div className="bg-gray-900 ">
       {
         loading ? (<LoadingComponent />) : <div className='flex w-full justify-between overflow-hidden'>
-          <div className='w-3/5 h-screen bg-[#eb5a44] flex justify-center'>
+          <div className='hidden lg:flex lg:w-3/5 lg:h-screen h-auto bg-[#eb5a44] justify-center'>
             <div className='flex items-center gap-2'>
               <div className="logo w-14 h-14 rounded-full flex justify-center items-center bg-white text-blue-900 font-extrabold text-2xl shadow-md">
                 <span>
@@ -29,7 +29,7 @@ const Auth = () => {
         </div>
       }
 
-    </>
+    </div>
 
   )
 }
